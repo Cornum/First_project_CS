@@ -10,18 +10,14 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Console.InputEncoding = Encoding.Unicode;
-            Console.OutputEncoding = Encoding.Unicode;
-            Console.SetCursorPosition(5,10);
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.Clear();
-            Console.WindowHeight = 10;
-            Console.WindowWidth = 35;
+            int[] cucumbers = { 24, 25, 17, 38, 100, int.MaxValue, int.MinValue };
+            int[] Cucum = new int[5] { 1, 3, 5, 8, 6 };
 
-            Console.WriteLine("Привет, Андрей! \nКуда ты вчера делся? \nЯ убежал к ...");
-            
-            Console.ReadKey();
+            for (int i = 0; i < Cucum.Length; i++)
+            {
+                Console.Write(cucumbers[i] + " ");
+                Console.Write(Cucum[i] + "-");
+            }
         }
     }
 }
