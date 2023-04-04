@@ -11,36 +11,33 @@ namespace First_project
         static void Main(string[] args)
         {
             Random rand = new Random();
-            int number;
-            int lower, higher;
-            int triesCount = 5;
-            int userInput;
+            float health1 = rand.Next(90, 110); 
+            int damage1 = rand.Next(7, 36), armor1 = rand.Next(45, 100);
+            float health2 = rand.Next(80, 120);
+            int damage2 = rand.Next(5, 40), armor2 = rand.Next(65, 100);
 
-            number = rand.Next(0, 101);
-            lower = rand.Next(number - 10, number);
-            higher = rand.Next(number + 1, number + 10);
+            Console.WriteLine($"Glad 1 - {health1} hp, {damage1} dmg, {armor1} arm");
+            Console.WriteLine($"Glad 2 - {health2} hp, {damage2} dmg, {armor2} arm");
 
-            Console.WriteLine($"Мы загадали число от 0 до 100. Оно больше чем {lower}, " +
-                $"но меньше чем  {higher}.");
-            Console.WriteLine($"Что это за число? У вас {triesCount} попыток отгадать.");
-
-            while (triesCount-- > 0)
+            while (health1 > 0 && health2 > 0)
             {
-                Console.Write("Ваш ответ: ");
-                userInput = Convert.ToInt32(Console.ReadLine());
-                if (userInput == number)
-                {
-                    Console.WriteLine("Вы правы, это было " + number + ".");
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Неверно. Попробуйте ещё раз.");
-                }
+                health1 -= Convert.ToSingle(rand.Next(0, damage2 + 1)) / 100 * armor1;
+                health2 -= Convert.ToSingle(rand.Next(0, damage1 + 1)) / 100 * armor2;
+                Console.WriteLine("Glad 1 hp - " + health1);
+                Console.WriteLine("Glad 2 hp - " + health2);
             }
-            if (triesCount < 0)
+
+            if(health1 <= 0 && health2 <= 0)
             {
-                Console.WriteLine("Вы проиграли. Это было число " + number + ".");
+                Console.WriteLine("Died both.");
+            }
+            else if (health1 <= 0)
+            {
+                Console.WriteLine("Died glad 1.");
+            }
+            else if (health2 <= 0)
+            {
+                Console.WriteLine("Died glad 2.");
             }
         }
     }
