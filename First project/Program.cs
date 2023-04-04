@@ -10,69 +10,21 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Console.OutputEncoding = Encoding.Unicode;
-            Console.InputEncoding = Encoding.Unicode;
+            /*Random rand = new Random();
+            int value;
 
-            /*int triesCount = 5;
-            string password = "123qwe";
-            string userInput;
-
-            for(int i=0; i<triesCount; i++)
+            while (true)
             {
-                Console.WriteLine("Введите пароль: ");
-                userInput = Console.ReadLine(); 
-                if(userInput == password)
-                {
-                    Console.WriteLine("Секретные данные.");
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Неверный пароль.");
-                    Console.WriteLine($"У вас осталось {triesCount-(i+1)} попыток");
-
-                }
-            }*/
-            /*float money;
-            int years, percent;
-
-            Console.Write("Введите количество денег, внесенных на вклад: ");
-            money = Convert.ToSingle(Console.ReadLine());
-            Console.WriteLine("На сколько лет открыт вклад?");
-            years = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Под какой процент?");
-            percent = Convert.ToInt32(Console.ReadLine());
-
-            for (int i = 0; i < years; i++)
-            {
-                money += money * percent / 100;
-                Console.WriteLine($"В {i+1} году у вас {money} рублей.");
+                value = rand.Next(0, 10);
+                Console.WriteLine(value);
                 Console.ReadKey();
             }*/
-            int playerHealth = 1000, playerDamage = 5;
-            int enemyHealth = 1000, enemyDamage = 5;
-
-            while (playerHealth > 0 && enemyHealth > 0)
+            Random rand = new Random();
+            for (int i = 0; i < 5; i++)
             {
-                playerHealth -= enemyDamage;
-                enemyHealth -= playerDamage;
-
-                Console.WriteLine(playerHealth + " - игрок.");
-                Console.WriteLine(enemyHealth + " - враг.");
+                Console.WriteLine(rand.Next(0, 5));
             }
 
-            if(playerHealth <= 0 && enemyHealth <= 0)
-            {
-                Console.WriteLine("Ничья.");
-            }
-            else if (enemyHealth <= 0)
-            {
-                Console.WriteLine("Победа игрока.");
-            }
-            else if (playerHealth <= 0)
-            {
-                Console.WriteLine("Победа врага.");
-            }
         }
     }
 }
