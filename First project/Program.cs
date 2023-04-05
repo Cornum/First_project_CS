@@ -10,19 +10,16 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello!");
-            Console.WriteLine("Are you here?");
-            WriteError("No signal");
-            Console.WriteLine("Strange...");
-            WriteError("Inthernet wasn't paid.");
+            int z=3, y=11, sum;
+            sum = Sum(z, y) + z + y;
+            Console.WriteLine(Sum(2,3));
         }
 
-        static void WriteError(string text)
+        static int Sum(int x, int y) 
         {
-            ConsoleColor defaultColor = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(text);
-            Console.ForegroundColor = defaultColor;
+            int sum;
+            sum = x + y;
+            return sum;
         }
     }
 }
