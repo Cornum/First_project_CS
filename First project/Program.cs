@@ -10,16 +10,19 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            int[] numbers = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            for (int i = 0; i < numbers.Length; i++)
-            {
-                Console.WriteLine(numbers[i]);
-            }
+            Console.WriteLine("Hello!");
+            Console.WriteLine("Are you here?");
+            WriteError("No signal");
+            Console.WriteLine("Strange...");
+            WriteError("Inthernet wasn't paid.");
+        }
 
-            foreach (int number in numbers)
-            {
-                Console.Write(number + " ");
-            }
+        static void WriteError(string text)
+        {
+            ConsoleColor defaultColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(text);
+            Console.ForegroundColor = defaultColor;
         }
     }
 }
