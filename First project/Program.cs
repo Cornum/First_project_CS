@@ -10,36 +10,48 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            int[] array1 = new int[5];
-            int[,] array2 = new int[5, 5];
-            array1 = Resize(array1, 6);
-            array2 = Resize(array2, 10, 10);
-            Console.WriteLine(array1.Length);
-            Console.WriteLine(array2.Length);
-        }
+            int health = 7, maxHealth = 10;
+            int mana = 10, maxMana = 10;
 
-        static int[] Resize(int[] array, int size)
-        {
-            int[] tempArray = new int[size];
-            for (int i = 0; i < array.Length; i++)
+            while (true)
             {
-                tempArray[i] = array[i];
+                DrawBar(health, maxHealth, ConsoleColor.Green, symbol: '|');
+                DrawBar(mana, maxMana, ConsoleColor.Blue, 1);
+
+                Console.SetCursorPosition(0, 5);
+                Console.Write("Enter number of health reduce: ");
+                health += Convert.ToInt32(Console.ReadLine());
+                Console.Write("Enter number of mana reduce: ");
+                mana += Convert.ToInt32(Console.ReadLine());
+
+                Console.ReadKey();
+                Console.Clear();   
             }
-            array = tempArray;
-            return array;
         }
-        static int[,] Resize(int[,] array , int x, int y)
+        static void DrawBar(int value, int maxValue, ConsoleColor color,
+            int position = 0, char symbol = '_')
         {
-            int[,] tempArray = new int[x, y];
-            for (int i = 0; i < array.GetLength(0); i++)
+            ConsoleColor defaultColor = Console.BackgroundColor;
+
+            string bar = "";
+            for (int i = 0; i < value; i++)
             {
-                for (int j = 0; j < array.GetLength(1); j++)
-                {
-                    tempArray[i, j] = array[i,j];
-                }
+                bar += symbol;
             }
-            array = tempArray;
-            return array;
+            Console.SetCursorPosition(0, position);
+            Console.Write('[');
+            Console.BackgroundColor = color;
+            Console.Write(bar);
+            Console.BackgroundColor = defaultColor;
+
+            bar = "";
+
+            for (int i = value; i < maxValue; i++)
+            {
+                bar += " ";
+            }
+
+            Console.Write(bar + ']');
         }
     }
 }
