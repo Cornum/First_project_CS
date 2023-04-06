@@ -10,25 +10,27 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Stack<int> numbers = new Stack<int>();
-            numbers.Push(1);
-            numbers.Push(2);    
-            numbers.Push(6);    
-            numbers.Push(4);    
-            numbers.Push(5);
+            Dictionary<string, string> countriesCapitals = new Dictionary<string, string>();
 
-            //Console.WriteLine(numbers.Peek());
+            countriesCapitals.Add("Australia", "Canberra");
+            countriesCapitals.Add("Turkey", "Ancara");
+            countriesCapitals.Add("Sweden", "Bern");
+            countriesCapitals.Remove("Turkey");
 
-            //numbers.Pop();
-
-            foreach(var number in numbers)
+            foreach(var item in countriesCapitals)
             {
-                Console.WriteLine(number);
+                Console.WriteLine($"Country - {item.Key}. Capital - {item.Value}");
             }
-            while(numbers.Count > 0)
+            foreach(var key in countriesCapitals.Keys)
             {
-                Console.WriteLine("Next in stack is " + numbers.Pop());
+                Console.WriteLine($"Country - {key}.");
             }
+            foreach (var value in countriesCapitals.Values)
+            {
+                Console.WriteLine($"Capital - {value}");
+            }
+            /*if (countriesCapitals.ContainsKey("Australia"))
+            Console.WriteLine(countriesCapitals["Australia"]);*/
 
         }
     }
