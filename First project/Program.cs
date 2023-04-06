@@ -10,20 +10,26 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Queue<string> patients = new Queue<string>();
+            Stack<int> numbers = new Stack<int>();
+            numbers.Push(1);
+            numbers.Push(2);    
+            numbers.Push(6);    
+            numbers.Push(4);    
+            numbers.Push(5);
 
-            patients.Enqueue("Vasiliy");
-            patients.Enqueue("Alexey");
-            patients.Enqueue("Roman");
-            patients.Enqueue("Vladimir");
+            //Console.WriteLine(numbers.Peek());
 
-            Console.WriteLine("Here is " + patients.Dequeue());
+            //numbers.Pop();
 
-            Console.WriteLine("Next will be " + patients.Peek());
-            foreach (var patien in patients)
+            foreach(var number in numbers)
             {
-                Console.WriteLine(patien);
+                Console.WriteLine(number);
             }
+            while(numbers.Count > 0)
+            {
+                Console.WriteLine("Next in stack is " + numbers.Pop());
+            }
+
         }
     }
 }
