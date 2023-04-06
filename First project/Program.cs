@@ -10,48 +10,29 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            int health = 7, maxHealth = 10;
-            int mana = 10, maxMana = 10;
+            List<int> numbers = new List<int>();
+            numbers.Add(12);
+            numbers.Add(5);
+            numbers.Add(8);
+            numbers.Add(14);
+            numbers.Add(22);
 
-            while (true)
+            numbers.AddRange(new int[] { 3, 8, 4, 1 });
+
+            numbers.RemoveAt(3);
+
+            numbers.Remove(5);
+
+            numbers.Insert(1, 123);
+
+            Console.WriteLine("First apearence of number 8 is " + numbers.IndexOf(8));
+            //numbers.Clear();
+
+            for (int i = 0; i < numbers.Count; i++)
             {
-                DrawBar(health, maxHealth, ConsoleColor.Green, symbol: '|');
-                DrawBar(mana, maxMana, ConsoleColor.Blue, 1);
-
-                Console.SetCursorPosition(0, 5);
-                Console.Write("Enter number of health reduce: ");
-                health += Convert.ToInt32(Console.ReadLine());
-                Console.Write("Enter number of mana reduce: ");
-                mana += Convert.ToInt32(Console.ReadLine());
-
-                Console.ReadKey();
-                Console.Clear();   
+                Console.WriteLine(numbers[i]);
             }
-        }
-        static void DrawBar(int value, int maxValue, ConsoleColor color,
-            int position = 0, char symbol = '_')
-        {
-            ConsoleColor defaultColor = Console.BackgroundColor;
-
-            string bar = "";
-            for (int i = 0; i < value; i++)
-            {
-                bar += symbol;
-            }
-            Console.SetCursorPosition(0, position);
-            Console.Write('[');
-            Console.BackgroundColor = color;
-            Console.Write(bar);
-            Console.BackgroundColor = defaultColor;
-
-            bar = "";
-
-            for (int i = value; i < maxValue; i++)
-            {
-                bar += " ";
-            }
-
-            Console.Write(bar + ']');
         }
     }
 }
+
