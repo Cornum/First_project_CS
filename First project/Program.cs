@@ -10,29 +10,31 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Dictionary<string, string> countriesCapitals = new Dictionary<string, string>();
+            Car ferrari = new Car(); //Выделяет память под класс Car
+            //Все созданные классы имеют ссылочный тип
+            Random rand = new Random();
+            ferrari.Name = "F40";
+            ferrari.HorsePower = 471;
+            ferrari.Age = 30;
+            ferrari.MaxSpeed = 317.0f;
 
-            countriesCapitals.Add("Australia", "Canberra");
-            countriesCapitals.Add("Turkey", "Ancara");
-            countriesCapitals.Add("Sweden", "Bern");
-            countriesCapitals.Remove("Turkey");
+            Car maserati;
 
-            foreach(var item in countriesCapitals)
-            {
-                Console.WriteLine($"Country - {item.Key}. Capital - {item.Value}");
-            }
-            foreach(var key in countriesCapitals.Keys)
-            {
-                Console.WriteLine($"Country - {key}.");
-            }
-            foreach (var value in countriesCapitals.Values)
-            {
-                Console.WriteLine($"Capital - {value}");
-            }
-            /*if (countriesCapitals.ContainsKey("Australia"))
-            Console.WriteLine(countriesCapitals["Australia"]);*/
+            maserati = ferrari;
 
+            maserati.HorsePower = 1000;
+
+            Console.WriteLine(ferrari.HorsePower);
         }
+    }
+
+    class Car 
+    { // по умолчанию private
+        public string Name;
+        public int HorsePower;
+        public int Age;
+        public float MaxSpeed;
+        float _minSpeed;
     }
 }
 
