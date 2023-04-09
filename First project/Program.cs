@@ -25,6 +25,9 @@ namespace First_project
             maserati.HorsePower = 1000;
 
             Console.WriteLine(ferrari.HorsePower);
+            ferrari.ShowTechnicalPasport();
+            ferrari.BecomeOlder(10,20);
+            ferrari.ShowTechnicalPasport();
         }
     }
 
@@ -35,6 +38,19 @@ namespace First_project
         public int Age;
         public float MaxSpeed;
         float _minSpeed;
+
+        public void ShowTechnicalPasport()
+        {
+            Console.WriteLine($"Name auto - {Name}\n" +
+                $"Amount of horse power - {HorsePower}\nAuto age - {Age}\n" +
+                $"Max speed - {MaxSpeed} km/h");
+        }
+
+        public void BecomeOlder(int years, int runAwayHorses)
+        {
+            Age += years;
+            HorsePower -= runAwayHorses;
+        }
     }
 }
 
