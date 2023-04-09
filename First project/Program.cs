@@ -11,20 +11,20 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Person person = new Student("Jim", 5); ;
-            Person person2 = new Mentor("Tom", 8);
-            Mentor mentor;
-            Student student;
-            //without Upcasting can't exist truly Downcasting
+            Person person = new Person("Jim") ; //if convertation happens. Write right info.
+            Mentor mentor = person as Mentor; //else write null
+            Student student = person as Student;
             
-            student = (Student)person;
-            mentor = (Mentor)person2; //Явное преобразование. Точно знаем что делаем.
-            Console.WriteLine(student.AverageScore);
-
-
-            //person = mentor;
-            //cant be person.NumberOfStudents
-            // person have info only about Person states
+            if (mentor != null)
+            {
+                mentor.ShowName();
+                Console.WriteLine(mentor.NumberOfStudents);
+            }
+            if(student != null)
+            {
+                student.ShowName();
+                Console.WriteLine(student.AverageScore);
+            }
         }
     }
     class Person
