@@ -11,46 +11,42 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            NonPLayerCharacter[] characters =
+            Behavior[] behaviours =
             {
-            new NonPLayerCharacter(),
-            new Farmer(),
-            new Knight(),
-            new Child()
+                new Walker(),
+                new Jumper()
             };
-            foreach (var character in characters)
+
+            while (true)
             {
-                character.ShowDescription();
-                Console.WriteLine(new String('-', 40));
+                foreach (var behaviour in behaviours)
+                {
+                    behaviour.Update();
+                    System.Threading.Thread.Sleep(1000);
+                }
             }
         }
     }
-    class NonPLayerCharacter
+    class Behavior
     {
-        public virtual void ShowDescription()
+        public virtual void Update()
         {
-            Console.WriteLine("I'm just NPC, i can walk only.");
-        }
-    }
 
-    class Farmer : NonPLayerCharacter
-    {
-        public override void ShowDescription()
-        {
-            base.ShowDescription();
-            Console.WriteLine("Also i'm Farmer and can work on farm.");
         }
     }
-    class Knight : NonPLayerCharacter
+    class Walker : Behavior
     {
-        public override void ShowDescription()
+        public override void Update()
         {
-            Console.WriteLine("I'm knight, warcraft is my life!");
+            Console.WriteLine("Walk.");
         }
     }
-    class Child : NonPLayerCharacter
+    class Jumper : Behavior
     {
-
+        public override void Update()
+        {
+            Console.WriteLine("Jump.");
+        }
     }
 }
 
