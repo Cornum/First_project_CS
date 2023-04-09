@@ -10,73 +10,58 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            bool isOpen = true;
-            Table[] tables = { new Table(1,4), new Table(2,8), new Table(3,10)};
+            Performer worker1 = new Performer("Veniamin");
+            Performer worker2 = new Performer("Roman");
 
-            while (isOpen)
-            {
-                Console.WriteLine("Administration menu.\n");
+            Task[] tasks = { new Task(worker1, "Dig a hole."), new Task(worker2, "Move dirt out.") };
 
-                for (int i = 0; i < tables.Length; i++)
-                {
-                    tables[i].ShowInfo();
-                }
-
-                MakeReservation(tables);
-
-                Console.ReadKey();
-                Console.Clear();
-            }
-        }
-        public static void MakeReservation(Table[] tables)
-        {
-            Console.Write("\nEnter table number:");
-            int wishTable = Convert.ToInt32(Console.ReadLine()) - 1;
-            Console.Write("Enter desired places: ");
-            int desirePlaces = Convert.ToInt32(Console.ReadLine());
-
-            bool isReservationCompleted = tables[wishTable].Reserve(desirePlaces);
-
-            if (isReservationCompleted)
-            {
-                Console.WriteLine("Reservation completed.");
-            }
-            else
-            {
-                Console.WriteLine("Not enough places.");
-            }
+            Board schedule = new Board(tasks);
+            schedule.ShowAllTasks();
         }
     }
-    class Table
-    {
-        public int Number;
-        public int MaxPlaces;
-        public int FreePlaces;
 
-        public Table(int number, int maxPlaces)
+    class Performer
+    {
+        public string Name;
+
+        public Performer(string name)
         {
-            Number = number;
-            MaxPlaces = maxPlaces;
-            FreePlaces = maxPlaces;
+            Name = name;
+        }
+
+    }
+    class Board
+    {
+        public Task[] Tasks;
+        public Board(Task[] tasks)
+        {
+            Tasks = tasks;
+        }
+
+        public void ShowAllTasks()
+        {
+            for (int i =0; i < Tasks.Length; i++)
+            {
+                Tasks[i].ShowInfo();
+            }
+        }
+
+    }
+    class Task
+    {
+        public Performer Worker;
+        public string Description;
+
+        public Task (Performer worker, string description)
+        {
+            Worker = worker;
+            Description = description;
         }
 
         public void ShowInfo()
         {
-            Console.WriteLine($"Table: {Number}.\nFree places: {FreePlaces} out of {MaxPlaces}.\n");
+            Console.WriteLine($"Duty: {Worker.Name}.\nDescription of task: {Description}.");
         }
-        public bool Reserve(int places)
-        {
-            if (FreePlaces >= places)
-            {
-                FreePlaces -= places;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        
     }
 }
 
