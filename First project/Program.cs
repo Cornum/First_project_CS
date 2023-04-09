@@ -11,20 +11,23 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Person person = new Person("Jim") ; //if convertation happens. Write right info.
-            Mentor mentor = person as Mentor; //else write null
-            Student student = person as Student;
-            
-            if (mentor != null)
+            Person person = new Person("Jim");
+            Mentor mentor;
+            Student student;
+            if (person is Mentor)
             {
+                mentor = (Mentor)person;
                 mentor.ShowName();
                 Console.WriteLine(mentor.NumberOfStudents);
             }
-            if(student != null)
+            if (person is Student)
             {
+                student = (Student)person;
                 student.ShowName();
                 Console.WriteLine(student.AverageScore);
             }
+
+
         }
     }
     class Person
