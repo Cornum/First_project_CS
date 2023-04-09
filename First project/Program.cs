@@ -11,94 +11,46 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Fighter[] fighters = {
-            new Fighter("John", 500 , 50, 0),
-            new Fighter("Mark", 250 , 25, 25),
-            new Fighter("Alex", 150 , 100, 10),
-            new Fighter("Jack", 300 , 75, 5),
+            NonPLayerCharacter[] characters =
+            {
+            new NonPLayerCharacter(),
+            new Farmer(),
+            new Knight(),
+            new Child()
             };
-            int fighterNumber;
-
-            for (int i = 0; i < fighters.Length; i++)
+            foreach (var character in characters)
             {
-                Console.Write(i + 1 + ". ");
-                fighters[i].ShowStats();
+                character.ShowDescription();
+                Console.WriteLine(new String('-', 40));
             }
-            Console.WriteLine("\n** " + new string('-', 25) + "**");
-            Console.Write("\nEnter number of your first fighter: ");
-            fighterNumber = Convert.ToInt32(Console.ReadLine()) - 1;
-            Fighter firstFighter = fighters[fighterNumber];
-
-            Console.Write("Enter number of your second fighter: ");
-            fighterNumber = Convert.ToInt32(Console.ReadLine()) - 1;
-            Fighter secondFighter = fighters[fighterNumber];
-            Console.WriteLine("\n** " + new string('-', 25) + "**");
-
-            WhoIsWinner(firstFighter, secondFighter);
-
-        }
-        static void WhoIsWinner(Fighter firstFighter, Fighter secondFighter)
-        {
-            while (firstFighter.Health > 0 && secondFighter.Health > 0)
-            {
-                firstFighter.TakeDamage(secondFighter.Damage);
-                secondFighter.TakeDamage(firstFighter.Damage);
-                firstFighter.ShowCurrentHealth();
-                secondFighter.ShowCurrentHealth();
-            }
-            if (firstFighter.Health <= 0 && secondFighter.Health <= 0) { WriteWithChangedColor("Tie.", ConsoleColor.DarkYellow); }
-            else if (firstFighter.Health <= 0) { WriteWithChangedColor($"Winner is {secondFighter.Name}.", ConsoleColor.DarkYellow); }
-            else if (secondFighter.Health <= 0) { WriteWithChangedColor($"Winner is {firstFighter.Name}.", ConsoleColor.DarkYellow); }
-            else { WriteWithChangedColor("Error!", ConsoleColor.Red); }
-        }
-        static void WriteWithChangedColor(string text, ConsoleColor color)
-        {
-            ConsoleColor defaultColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
-            Console.Write(text);
-            Console.ForegroundColor = defaultColor;
         }
     }
-    class Fighter
+    class NonPLayerCharacter
     {
-        private string _name;
-        private int _health;
-        private int _armor;
-        private int _damage;
+        public virtual void ShowDescription()
+        {
+            Console.WriteLine("I'm just NPC, i can walk only.");
+        }
+    }
 
-        public int Health { get { return _health; } }
-        public string Name { get { return _name; } }
-        public int Damage { get { return _damage; } }
-        public Fighter(string name, int health, int damage, int armor)
+    class Farmer : NonPLayerCharacter
+    {
+        public override void ShowDescription()
         {
-            _name = name;
-            _health = health;
-            _damage = damage;
-            _armor = armor;
+            base.ShowDescription();
+            Console.WriteLine("Also i'm Farmer and can work on farm.");
         }
-        public void ShowStats()
+    }
+    class Knight : NonPLayerCharacter
+    {
+        public override void ShowDescription()
         {
-            WriteWithChangedColor("Fighter - " + _name + ", ", ConsoleColor.White);
-            WriteWithChangedColor("Hp - " + _health + ", ", ConsoleColor.Green);
-            WriteWithChangedColor("Given damage - " + _damage + ", ", ConsoleColor.Red);
-            WriteWithChangedColor("Armor - " + _armor + ".", ConsoleColor.Cyan);
-            Console.WriteLine();
+            Console.WriteLine("I'm knight, warcraft is my life!");
         }
-        public void ShowCurrentHealth()
-        {
-            Console.WriteLine($"{_name} HP - {_health}");
-        }
-        public void TakeDamage(int damage)
-        {
-            _health -= damage - _armor;
-        }
-        static void WriteWithChangedColor(string text, ConsoleColor color)
-        {
-            ConsoleColor defaultColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
-            Console.Write(text);
-            Console.ForegroundColor = defaultColor;
-        }
+    }
+    class Child : NonPLayerCharacter
+    {
+
     }
 }
 
