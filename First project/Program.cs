@@ -11,54 +11,61 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Renderer render = new Renderer();
-            Player player = new Player(55, 10, 10);
+            Cart cart = new Cart();
+            cart.ShowProducts();
 
-            render.Draw(player.GetPositionX(), player.Y);
-            //player.Y == 100;
+            List<Product> products = new List<Product>();
+            for (int i = 0; i < cart.GetProductsCount(); i++)
+            {
+                products.Add(cart.getProductByIndex(i));
+            }
+
+            products.RemoveAt(0);
+
+            Console.WriteLine();
+            cart.ShowProducts();
+            Console.WriteLine();
+            foreach (Product product in products)
+            {
+                Console.WriteLine(product.Name);
+            }
 
         }
     }
-    class Renderer
+    class Cart
     {
-        public void Draw(int x, int y, char character = '@')
+        private List<Product> _products = new List<Product>();
+
+        public Cart()
         {
-            Console.CursorVisible = false;
-            Console.SetCursorPosition(x, y);
-            Console.Write(character);
-            Console.ReadKey(true);
+            _products.Add(new Product("Apple"));
+            _products.Add(new Product("Banana"));
+            _products.Add(new Product("Orange"));
+            _products.Add(new Product("Pear"));
+        }
+        public void ShowProducts()
+        {
+            foreach (var product in _products)
+            {
+                Console.WriteLine(product.Name);
+            }
+        }
+        public Product getProductByIndex(int index)
+        {
+            return _products.ElementAt(index);
+        }
+        public int GetProductsCount()
+        {
+            return _products.Count();
         }
     }
-    class Player
+    class Product
     {
-        private int _x;
-        private int _y;
-
-        public int Y
+        public string Name { get; set; }
+        public Product(string name)
         {
-            get
-            {
-                return _y;
-            }
-            private set
-            {
-                if (Y > 0 && Y < 100)
-                    _y = value;
-            }
+            Name = name;
         }
-        public int Z { get; private set; }
-        public Player(int x, int y, int z)
-        {
-            _x = x;
-            _y = y;
-            Z = z;
-        }
-
-        public int GetPositionX()
-        {
-            return _x;
-        }
-
     }
 }
 
