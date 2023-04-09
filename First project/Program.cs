@@ -11,62 +11,54 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Knight warrior1 = new Knight(100,10);
-            Barbarian warrior2 = new Barbarian(100, 1, 7, 2);
+            Renderer render = new Renderer();
+            Player player = new Player(55, 10, 10);
 
-            warrior1.TakeDamage(500);
-            warrior2.TakeDamage(250);
+            render.Draw(player.GetPositionX(), player.Y);
+            //player.Y == 100;
 
-            Console.Write("Knigth: ");
-            warrior1.ShowInfo();
-            Console.Write("Barbarian: ");
-            warrior2.ShowInfo();
-            
-        }
-
-    }
-
-    class Warrior
-    {
-        protected int Health;
-        protected int Armor;
-        protected int Damage;
-
-        public Warrior(int health, int armor, int damage)
-        {
-            Health = health;
-            Armor = armor;
-            Damage = damage;
-        }
-
-        public void TakeDamage(int damage)
-        {
-            Health -= damage-Armor;
-        }
-
-        public void ShowInfo()
-        {
-            Console.WriteLine($"HP - {Health}.");
         }
     }
-    class Knight : Warrior
+    class Renderer
     {
-        public Knight(int health, int damage) : base(health, 5, damage) { }
-        public void Pray()
+        public void Draw(int x, int y, char character = '@')
         {
-            Armor += 2;
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(x, y);
+            Console.Write(character);
+            Console.ReadKey(true);
+        }
+    }
+    class Player
+    {
+        private int _x;
+        private int _y;
+
+        public int Y
+        {
+            get
+            {
+                return _y;
+            }
+            private set
+            {
+                if (Y > 0 && Y < 100)
+                    _y = value;
+            }
+        }
+        public int Z { get; private set; }
+        public Player(int x, int y, int z)
+        {
+            _x = x;
+            _y = y;
+            Z = z;
         }
 
-    }
-    class Barbarian : Warrior
-    {
-        //public int AttackSpeed;
-        public Barbarian(int health, int armor, int damage, int attackSpeed) : base(health, armor, damage*attackSpeed) { }
-        public void Shout()
+        public int GetPositionX()
         {
-            Armor -= 2;
-            Health += 10;
+            return _x;
         }
+
     }
 }
 
