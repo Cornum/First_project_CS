@@ -34,6 +34,11 @@ namespace First_project
             Fighter secondFighter = fighters[fighterNumber];
             Console.WriteLine("\n** " + new string('-', 25) + "**");
 
+            WhoIsWinner(firstFighter, secondFighter);
+
+        }
+        static void WhoIsWinner(Fighter firstFighter, Fighter secondFighter)
+        {
             while (firstFighter.Health > 0 && secondFighter.Health > 0)
             {
                 firstFighter.TakeDamage(secondFighter.Damage);
@@ -41,15 +46,17 @@ namespace First_project
                 firstFighter.ShowCurrentHealth();
                 secondFighter.ShowCurrentHealth();
             }
-            WhoIsWinner(firstFighter, secondFighter);
-
+            if (firstFighter.Health <= 0 && secondFighter.Health <= 0) { WriteWithChangedColor("Tie.", ConsoleColor.DarkYellow); }
+            else if (firstFighter.Health <= 0) { WriteWithChangedColor($"Winner is {secondFighter.Name}.", ConsoleColor.DarkYellow); }
+            else if (secondFighter.Health <= 0) { WriteWithChangedColor($"Winner is {firstFighter.Name}.", ConsoleColor.DarkYellow); }
+            else { WriteWithChangedColor("Error!", ConsoleColor.Red); }
         }
-        static void WhoIsWinner(Fighter firstFighter, Fighter secondFighter)
+        static void WriteWithChangedColor(string text, ConsoleColor color)
         {
-            if (firstFighter.Health <= 0 && secondFighter.Health <= 0) { Console.WriteLine("Tie."); }
-            else if (firstFighter.Health <= 0) { Console.WriteLine($"Winner is {secondFighter.Name}."); }
-            else if (secondFighter.Health <= 0) { Console.WriteLine($"Winner is {firstFighter.Name}."); }
-            else { Console.WriteLine("Error!"); }
+            ConsoleColor defaultColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.Write(text);
+            Console.ForegroundColor = defaultColor;
         }
     }
     class Fighter
@@ -61,7 +68,7 @@ namespace First_project
 
         public int Health { get { return _health; } }
         public string Name { get { return _name; } }
-        public int Damage { get{ return _damage; } }
+        public int Damage { get { return _damage; } }
         public Fighter(string name, int health, int damage, int armor)
         {
             _name = name;
@@ -71,8 +78,11 @@ namespace First_project
         }
         public void ShowStats()
         {
-            Console.WriteLine($"Fighter - {_name}, HP - {_health}, " +
-                $"Given damage - {_damage}, Armor - {_armor}");
+            WriteWithChangedColor("Fighter - " + _name + ", ", ConsoleColor.White);
+            WriteWithChangedColor("Hp - " + _health + ", ", ConsoleColor.Green);
+            WriteWithChangedColor("Given damage - " + _damage + ", ", ConsoleColor.Red);
+            WriteWithChangedColor("Armor - " + _armor + ".", ConsoleColor.Cyan);
+            Console.WriteLine();
         }
         public void ShowCurrentHealth()
         {
@@ -81,6 +91,13 @@ namespace First_project
         public void TakeDamage(int damage)
         {
             _health -= damage - _armor;
+        }
+        static void WriteWithChangedColor(string text, ConsoleColor color)
+        {
+            ConsoleColor defaultColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.Write(text);
+            Console.ForegroundColor = defaultColor;
         }
     }
 }
