@@ -9,22 +9,34 @@ namespace First_project
 {
     internal class Program
     {
-        static void Main(string[] args) //Класс -ссылочный тип
-            //Структура - тип значение.
-        {
-            Vector2 position;
-            Vector2 position1 = new Vector2(10);
-            //Console.WriteLine(position.X);
-            Console.WriteLine(position1.X);
-            Console.WriteLine(position1.Y);
-            position.X = 10;
+        static void Main(string[] args) 
 
+        {
+            GameObject bullet =new GameObject();
+
+            //bullet.Position.X = 50; WRONG
+            Console.WriteLine(bullet.Position.X);
+            Vector2 newPosition = bullet.Position;
+            newPosition.X = 50;
+            bullet.Position = newPosition;
+            Console.WriteLine(bullet.Position.X);
+
+
+            Vector2 targetPosition = new Vector2(10,10);
+            Vector2 playerPosition = targetPosition;
+
+            playerPosition.X += 15;
+
+            Console.WriteLine(targetPosition.X); //show value type of struct
         } 
+    }
+    class GameObject
+    {
+        public Vector2 Position { get; set; }
     }
     struct Vector2
     {
         public int X, Y;
-        //public Vector2() { }
         public Vector2(int x, int y)
         {
             X = x;
