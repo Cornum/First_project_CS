@@ -9,38 +9,27 @@ namespace First_project
 {
     internal class Program
     {
-        static void Main(string[] args) // для пустых классов (Warrior из практики боя.)
+        static void Main(string[] args) 
         {
-            Vehicle[] vehicles = { new Car() , new Train()};
-            foreach (var vehicle in vehicles)
-            {
-                vehicle.GetCurrentSpeed();
-            }
-        }
-    }
-    abstract class Vehicle
-    {
-        protected float Speed;
+            User.Identifications = 10;
+            User user1 = new User();
+            User user2 = new User();
+            user1.ShowInfo();
+            user2.ShowInfo();
 
-        public abstract void Move();
-
-        public float GetCurrentSpeed()
-        {
-            return Speed;
-        }
+        } 
     }
-    class Car : Vehicle
+    class User
     {
-        public override void Move()
+        public static int Identifications;
+        public int Identification;
+        public User()
         {
-            Console.WriteLine("Car ride on the road.");
+            Identification = ++ Identifications;
         }
-    }
-    class Train : Vehicle
-    {
-        public override void Move()
+        public void ShowInfo()
         {
-            Console.WriteLine("Train ride on the kolej.");
+            Console.WriteLine(Identification);
         }
     }
 }
