@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace First_project
 {
@@ -10,57 +11,61 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Performer worker1 = new Performer("Veniamin");
-            Performer worker2 = new Performer("Roman");
+            Knight warrior1 = new Knight(100,10);
+            Barbarian warrior2 = new Barbarian(100, 1, 7, 2);
 
-            Task[] tasks = { new Task(worker1, "Dig a hole."), new Task(worker2, "Move dirt out.") };
+            warrior1.TakeDamage(500);
+            warrior2.TakeDamage(250);
 
-            Board schedule = new Board(tasks);
-            schedule.ShowAllTasks();
-        }
-    }
-
-    class Performer
-    {
-        public string Name;
-
-        public Performer(string name)
-        {
-            Name = name;
+            Console.Write("Knigth: ");
+            warrior1.ShowInfo();
+            Console.Write("Barbarian: ");
+            warrior2.ShowInfo();
+            
         }
 
     }
-    class Board
+
+    class Warrior
     {
-        public Task[] Tasks;
-        public Board(Task[] tasks)
+        protected int Health;
+        protected int Armor;
+        protected int Damage;
+
+        public Warrior(int health, int armor, int damage)
         {
-            Tasks = tasks;
+            Health = health;
+            Armor = armor;
+            Damage = damage;
         }
 
-        public void ShowAllTasks()
+        public void TakeDamage(int damage)
         {
-            for (int i =0; i < Tasks.Length; i++)
-            {
-                Tasks[i].ShowInfo();
-            }
-        }
-
-    }
-    class Task
-    {
-        public Performer Worker;
-        public string Description;
-
-        public Task (Performer worker, string description)
-        {
-            Worker = worker;
-            Description = description;
+            Health -= damage-Armor;
         }
 
         public void ShowInfo()
         {
-            Console.WriteLine($"Duty: {Worker.Name}.\nDescription of task: {Description}.");
+            Console.WriteLine($"HP - {Health}.");
+        }
+    }
+    class Knight : Warrior
+    {
+        public Knight(int health, int damage) : base(health, 5, damage) { }
+        public void Pray()
+        {
+            Armor += 2;
+        }
+
+    }
+    class Barbarian : Warrior
+    {
+        //public int AttackSpeed;
+        public Barbarian(int health, int armor, int damage, int attackSpeed) : base(health, armor, damage*attackSpeed) { }
+        public void Shout()
+        {
+            Armor -= 2;
+            Health += 10;
         }
     }
 }
