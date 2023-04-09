@@ -10,62 +10,73 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Car maserati = new Car();
-            Car ferrari = new Car("F40",-471,30,317.0f);
+            bool isOpen = true;
+            Table[] tables = { new Table(1,4), new Table(2,8), new Table(3,10)};
 
-            Console.WriteLine(ferrari.HorsePower);
-            ferrari.ShowTechnicalPasport();
-            ferrari.BecomeOlder(10,20);
-            Console.WriteLine();
-            ferrari.ShowTechnicalPasport();
-            Console.WriteLine();
-            maserati.ShowTechnicalPasport();
-        }
-    }
-
-    class Car 
-    { // по умолчанию private
-        public string Name;
-        public int HorsePower;
-        public int Age;
-        public float MaxSpeed;
-        float _minSpeed;
-        public int Years = 4;
-
-        public Car(string name, int horsePower, int age, float maxSpeed)
-        {
-            if(horsePower < 0)
+            while (isOpen)
             {
-                HorsePower = 1;
+                Console.WriteLine("Administration menu.\n");
+
+                for (int i = 0; i < tables.Length; i++)
+                {
+                    tables[i].ShowInfo();
+                }
+
+                MakeReservation(tables);
+
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+        public static void MakeReservation(Table[] tables)
+        {
+            Console.Write("\nEnter table number:");
+            int wishTable = Convert.ToInt32(Console.ReadLine()) - 1;
+            Console.Write("Enter desired places: ");
+            int desirePlaces = Convert.ToInt32(Console.ReadLine());
+
+            bool isReservationCompleted = tables[wishTable].Reserve(desirePlaces);
+
+            if (isReservationCompleted)
+            {
+                Console.WriteLine("Reservation completed.");
             }
             else
             {
-            HorsePower = horsePower;
+                Console.WriteLine("Not enough places.");
             }
-            Name = name;
-            Age = age;
-            MaxSpeed = maxSpeed;
         }
-        public Car() 
+    }
+    class Table
+    {
+        public int Number;
+        public int MaxPlaces;
+        public int FreePlaces;
+
+        public Table(int number, int maxPlaces)
         {
-            Name = "Unnamed car";
-            HorsePower = 1;
-            Age = 1;
-            MaxSpeed = 140;
+            Number = number;
+            MaxPlaces = maxPlaces;
+            FreePlaces = maxPlaces;
         }
 
-        public void ShowTechnicalPasport()
+        public void ShowInfo()
         {
-            Console.WriteLine($"Name auto - {Name}\n" +
-                $"Amount of horse power - {HorsePower}\nAuto age - {Age}\n" +
-                $"Max speed - {MaxSpeed} km/h");
+            Console.WriteLine($"Table: {Number}.\nFree places: {FreePlaces} out of {MaxPlaces}.\n");
         }
-
-        public void BecomeOlder(int Years, int runAwayHorses)
+        public bool Reserve(int places)
         {
-            Age += this.Years + Years;
-            HorsePower -= runAwayHorses;
+            if (FreePlaces >= places)
+            {
+                FreePlaces -= places;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+        
     }
 }
 
