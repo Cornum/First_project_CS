@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace First_project
 {
@@ -11,39 +8,30 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            List<Game> games = new List<Game>();
-            games.Add(new Game("Blck & Wht",Genre.Strategy));
-            games.Add(new Game("The Witcher 3: Wild Hunt",Genre.RPG));
-            games.Add(new Game("Sid Miser's Civ VI",Genre.Strategy));
-            games.Add(new Game("Ori and the Will of the Wisps",Genre.Action));
+            List<Player> players = new List<Player> { 
+                new Player("John",100),
+                new Player("Bill",200),
+                new Player("Derek",260),
+                new Player("Clark",241)
+            };
 
-            foreach (Game game in games)
+            var filteredPlayers = from Player player in players where player.Level > 200 select player;
+
+
+            foreach (Player player in filteredPlayers)
             {
-                game.ShowInfo();
+                Console.WriteLine(player.Login);
             }
         }
     }
-    enum Genre
+    class Player
     {
-        Strategy,
-        RPG,
-        Action
-    }
-    class Game
-    {
-        private string _title;
-        private Genre _genre;
+        public string Login { get; private set; }
+        public int Level { get; private set; }
 
-        public Game(string title, Genre genre)
-        {
-            _title = title;
-            _genre = genre;
-        }
-
-        public void ShowInfo()
-        {
-            Console.WriteLine($"This is: {_title}, {(int)_genre} game.");
-        }
+        public Player(string login, int level) {
+        Login = login;
+        Level = level;}
     }
 }
 
