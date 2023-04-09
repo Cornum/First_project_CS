@@ -11,41 +11,41 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Behavior[] behaviours =
-            {
-                new Walker(),
-                new Jumper()
-            };
-
-            while (true)
-            {
-                foreach (var behaviour in behaviours)
-                {
-                    behaviour.Update();
-                    System.Threading.Thread.Sleep(1000);
-                }
-            }
+            IMovable car = new Car();
+            IMovable man = new Human();
         }
     }
-    class Behavior
+    interface IBurnable
     {
-        public virtual void Update()
-        {
+        void Burn();
+    }
+    interface IMovable
+    {
+        void Move();
+        void ShowMoveSpeed();
+    }
+    class Vehicle { }
+    class Car : Vehicle, IMovable, IBurnable
+    {
+        public void Move() 
+        { 
 
         }
-    }
-    class Walker : Behavior
-    {
-        public override void Update()
+        public void ShowMoveSpeed() 
         {
-            Console.WriteLine("Walk.");
+
         }
+        public void Burn() { }
     }
-    class Jumper : Behavior
+    class Human : IMovable
     {
-        public override void Update()
+        public void Move()
         {
-            Console.WriteLine("Jump.");
+
+        }
+        public void ShowMoveSpeed()
+        {
+
         }
     }
 }
