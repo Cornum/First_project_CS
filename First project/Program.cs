@@ -11,60 +11,76 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Cart cart = new Cart();
-            cart.ShowProducts();
+            Fighter[] fighters = {
+            new Fighter("John", 500 , 50, 0),
+            new Fighter("Mark", 250 , 25, 25),
+            new Fighter("Alex", 150 , 100, 10),
+            new Fighter("Jack", 300 , 75, 5),
+            };
+            int fighterNumber;
 
-            List<Product> products = new List<Product>();
-            for (int i = 0; i < cart.GetProductsCount(); i++)
+            for (int i = 0; i < fighters.Length; i++)
             {
-                products.Add(cart.getProductByIndex(i));
+                Console.Write(i + 1 + ". ");
+                fighters[i].ShowStats();
             }
+            Console.WriteLine("\n** " + new string('-', 25) + "**");
+            Console.Write("\nEnter number of your first fighter: ");
+            fighterNumber = Convert.ToInt32(Console.ReadLine()) - 1;
+            Fighter firstFighter = fighters[fighterNumber];
 
-            products.RemoveAt(0);
+            Console.Write("Enter number of your second fighter: ");
+            fighterNumber = Convert.ToInt32(Console.ReadLine()) - 1;
+            Fighter secondFighter = fighters[fighterNumber];
+            Console.WriteLine("\n** " + new string('-', 25) + "**");
 
-            Console.WriteLine();
-            cart.ShowProducts();
-            Console.WriteLine();
-            foreach (Product product in products)
+            while (firstFighter.Health > 0 && secondFighter.Health > 0)
             {
-                Console.WriteLine(product.Name);
+                firstFighter.TakeDamage(secondFighter.Damage);
+                secondFighter.TakeDamage(firstFighter.Damage);
+                firstFighter.ShowCurrentHealth();
+                secondFighter.ShowCurrentHealth();
             }
+            WhoIsWinner(firstFighter, secondFighter);
 
+        }
+        static void WhoIsWinner(Fighter firstFighter, Fighter secondFighter)
+        {
+            if (firstFighter.Health <= 0 && secondFighter.Health <= 0) { Console.WriteLine("Tie."); }
+            else if (firstFighter.Health <= 0) { Console.WriteLine($"Winner is {secondFighter.Name}."); }
+            else if (secondFighter.Health <= 0) { Console.WriteLine($"Winner is {firstFighter.Name}."); }
+            else { Console.WriteLine("Error!"); }
         }
     }
-    class Cart
+    class Fighter
     {
-        private List<Product> _products = new List<Product>();
+        private string _name;
+        private int _health;
+        private int _armor;
+        private int _damage;
 
-        public Cart()
+        public int Health { get { return _health; } }
+        public string Name { get { return _name; } }
+        public int Damage { get{ return _damage; } }
+        public Fighter(string name, int health, int damage, int armor)
         {
-            _products.Add(new Product("Apple"));
-            _products.Add(new Product("Banana"));
-            _products.Add(new Product("Orange"));
-            _products.Add(new Product("Pear"));
+            _name = name;
+            _health = health;
+            _damage = damage;
+            _armor = armor;
         }
-        public void ShowProducts()
+        public void ShowStats()
         {
-            foreach (var product in _products)
-            {
-                Console.WriteLine(product.Name);
-            }
+            Console.WriteLine($"Fighter - {_name}, HP - {_health}, " +
+                $"Given damage - {_damage}, Armor - {_armor}");
         }
-        public Product getProductByIndex(int index)
+        public void ShowCurrentHealth()
         {
-            return _products.ElementAt(index);
+            Console.WriteLine($"{_name} HP - {_health}");
         }
-        public int GetProductsCount()
+        public void TakeDamage(int damage)
         {
-            return _products.Count();
-        }
-    }
-    class Product
-    {
-        public string Name { get; set; }
-        public Product(string name)
-        {
-            Name = name;
+            _health -= damage - _armor;
         }
     }
 }
