@@ -23,6 +23,16 @@ namespace First_project
     {
         public static int Identifications;
         public int Identification;
+        public int MenHourPrice;
+
+        public int GetSalaryPerDay(int workedHours)
+        {
+            return workedHours * MenHourPrice;
+        }
+        public int GetSalaryPerMonth(int workedDays)
+        {
+            return GetSalaryPerDay(8) * workedDays;
+        }
         public User()
         {
             Identification = ++ Identifications;
