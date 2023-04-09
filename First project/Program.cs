@@ -11,22 +11,23 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Person person = new Person("Jim");
-            Mentor mentor;
-            Student student;
-            if (person is Mentor)
+            Person person = new Student("Jim",5);
+            Person person2 = new Mentor("Tom",8);
+
+            if (person is Student student)
             {
-                mentor = (Mentor)person;
-                mentor.ShowName();
-                Console.WriteLine(mentor.NumberOfStudents);
-            }
-            if (person is Student)
-            {
-                student = (Student)person;
                 student.ShowName();
                 Console.WriteLine(student.AverageScore);
             }
 
+            switch (person2) {
+                case Mentor mentor:
+                    mentor.ShowName();
+                    Console.WriteLine(mentor.NumberOfStudents);
+                    break;
+                case Student student1:
+                    break;
+            }
 
         }
     }
