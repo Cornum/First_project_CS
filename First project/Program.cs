@@ -11,35 +11,26 @@ namespace First_project
     {
         static void Main(string[] args) 
         {
-            User.Identifications = 10;
-            User user1 = new User();
-            User user2 = new User();
-            user1.ShowInfo();
-            user2.ShowInfo();
-
+            Console.WriteLine("Hello, world!");
+            MyClass instance = new MyClass();
+            MyClass instance1 = new MyClass();
+            Console.WriteLine(MyClass.StaticField);
+            Console.WriteLine(MyClass.StaticField);
         } 
     }
-    class User
+    class MyClass
     {
-        public static int Identifications;
-        public int Identification;
-        public int MenHourPrice;
+        public static float StaticField;
 
-        public int GetSalaryPerDay(int workedHours)
+        static MyClass()
         {
-            return workedHours * MenHourPrice;
+            StaticField = 10;
+            Console.WriteLine("Static constructor.");
         }
-        public int GetSalaryPerMonth(int workedDays)
+
+        public MyClass()
         {
-            return GetSalaryPerDay(8) * workedDays;
-        }
-        public User()
-        {
-            Identification = ++ Identifications;
-        }
-        public void ShowInfo()
-        {
-            Console.WriteLine(Identification);
+            Console.WriteLine("Normal constructor.");
         }
     }
 }
