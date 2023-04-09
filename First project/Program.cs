@@ -10,24 +10,16 @@ namespace First_project
     {
         static void Main(string[] args)
         {
-            Car ferrari = new Car(); //Выделяет память под класс Car
-            //Все созданные классы имеют ссылочный тип
-            Random rand = new Random();
-            ferrari.Name = "F40";
-            ferrari.HorsePower = 471;
-            ferrari.Age = 30;
-            ferrari.MaxSpeed = 317.0f;
-
-            Car maserati;
-
-            maserati = ferrari;
-
-            maserati.HorsePower = 1000;
+            Car maserati = new Car();
+            Car ferrari = new Car("F40",-471,30,317.0f);
 
             Console.WriteLine(ferrari.HorsePower);
             ferrari.ShowTechnicalPasport();
             ferrari.BecomeOlder(10,20);
+            Console.WriteLine();
             ferrari.ShowTechnicalPasport();
+            Console.WriteLine();
+            maserati.ShowTechnicalPasport();
         }
     }
 
@@ -38,6 +30,29 @@ namespace First_project
         public int Age;
         public float MaxSpeed;
         float _minSpeed;
+        public int Years = 4;
+
+        public Car(string name, int horsePower, int age, float maxSpeed)
+        {
+            if(horsePower < 0)
+            {
+                HorsePower = 1;
+            }
+            else
+            {
+            HorsePower = horsePower;
+            }
+            Name = name;
+            Age = age;
+            MaxSpeed = maxSpeed;
+        }
+        public Car() 
+        {
+            Name = "Unnamed car";
+            HorsePower = 1;
+            Age = 1;
+            MaxSpeed = 140;
+        }
 
         public void ShowTechnicalPasport()
         {
@@ -46,9 +61,9 @@ namespace First_project
                 $"Max speed - {MaxSpeed} km/h");
         }
 
-        public void BecomeOlder(int years, int runAwayHorses)
+        public void BecomeOlder(int Years, int runAwayHorses)
         {
-            Age += years;
+            Age += this.Years + Years;
             HorsePower -= runAwayHorses;
         }
     }
